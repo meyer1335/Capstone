@@ -1,0 +1,43 @@
+article {
+    display:    block;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    
+}
+.clockFace {
+    color:  white;
+    background-color: black;
+    width:  1024px;
+    height: 26em;
+    box-sizing: content-box;
+    padding: 0px;
+    margin: auto;
+}
+.weekday {
+    color:  white;
+    height: 1.1em;
+    font-size: 3.5em;
+}
+.time {
+    height: 18em;
+    font-size: 18em;
+}
+.date {
+    color:  white;
+    height: 1em;
+    font-size: 3.5em;
+}
+
+.alarm {
+    color:  white;
+    height: 1.1em;
+    font-size: 3.5em;
+} 
+
+#ampm {
+    color:  white;
+    height: 18em;
+    font-size: 5em;
+}
+
+
