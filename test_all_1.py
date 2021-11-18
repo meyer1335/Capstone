@@ -3,6 +3,7 @@ import time
 import datetime
 import pygame.mixer
 from gpiozero import Sound
+from yeelight import Bulb
 
 ### Button Definitions ###
 
@@ -21,6 +22,9 @@ GPIO_TOGGLE_ALARM = 25
 # Alarm Sound Init
 pygame.mixer.init()
 sound = pygame.mixer.Sound("./Alarm.wav")
+
+# LED Light Init
+bulb = Bulb("192.168.43.2")
 
 # Lets us use pin numberings from board
 GPIO.setwarnings(False)
