@@ -24,7 +24,7 @@ pygame.mixer.init()
 sound = pygame.mixer.Sound("./Alarm.wav")
 
 # LED Light Init
-bulb = Bulb("192.168.43.2",effect = "smooth", duration = 300000) # turns on in a duration of 5 minutes when turn.on() is called
+bulb = Bulb("192.168.43.2",auto_on = True, effect = "smooth", duration = 300000) # turns on in a duration of 5 minutes when turn.on() is called
 
 # Lets us use pin numberings from board
 GPIO.setwarnings(False)
@@ -174,7 +174,8 @@ def alarm_off(sound):
     sound.stop()
     
 def light_on(bulb):
-    bulb.turn_on()
+    bulb.set_color_temp(4000) #sets the color temperature to match the sun
+    bulb.turn_on()  #turns light on gradually within 5 minutes
   # Make it do a procedural increase in brightness eventually
   # To do this we can use bulb.set_brightness(x) 0 <= x <= 100
     
