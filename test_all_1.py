@@ -1,6 +1,8 @@
 import RPi.GPIO as GPIO
 import time
 import datetime
+import pygame.mixer
+from gpiozero import Sound
 
 ### Button Definitions ###
 
@@ -9,13 +11,17 @@ GPIO_TRIGGER = 18
 GPIO_ECHO = 24
 
 # For Time Change / Alarm Toggle Buttons
-GPIO_HOUR = 19
-GPIO_MINUTE = 20
-GPIO_HOLD_FOR_TIME = 21
-GPIO_TOGGLE_ALARM = 22
+GPIO_HOUR = 27
+GPIO_MINUTE = 22
+GPIO_HOLD_FOR_TIME = 23
+GPIO_TOGGLE_ALARM = 25
 
 
 ### Init ###
+# Alarm Sound Init
+pygame.mixer.init()
+sound = pygame.mixer.Sound("./Alarm.wav")
+
 # Lets us use pin numberings from board
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -150,6 +156,14 @@ def distance():
   distance = (TimeElapsed * 34300) / 2
  
   return distance
+
+def alarm_on(sound):
+  # Make it do a procedural increase in volume eventually
+  # To do this we can use sound.set_volume(x) 0 <= x <= 1
+	sound.play()
+
+def alarm_off(sound): 
+	sound.stop()
 
 ### When X time until alarm, start alarm processes ###
 # If the alarm is disabled in this time we want this process to stop
