@@ -24,7 +24,7 @@ pygame.mixer.init()
 sound = pygame.mixer.Sound("./Alarm.wav")
 
 # LED Light Init
-bulb = Bulb("192.168.43.2")
+bulb = Bulb("192.168.43.2",effect = "smooth", duration = 300000) # turns on in a duration of 5 minutes when turn.on() is called
 
 # Lets us use pin numberings from board
 GPIO.setwarnings(False)
