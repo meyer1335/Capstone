@@ -24,7 +24,8 @@ pygame.mixer.init()
 sound = pygame.mixer.Sound("./Alarm.wav")
 
 # LED Light Init
-bulb = Bulb("192.168.43.2",auto_on = True, effect = "smooth", duration = 300000) # turns on in a duration of 5 minutes when turn.on() is called
+bulb = Bulb("192.168.43.2")
+bulb = Bulb("192.168.43.2",auto_on = True, effect = "smooth", duration = 600000) # turns on in a duration of 10 minutes when light_on() is called
 
 # Lets us use pin numberings from board
 GPIO.setwarnings(False)
@@ -175,9 +176,7 @@ def alarm_off(sound):
     
 def light_on(bulb):
     bulb.set_color_temp(4000) #sets the color temperature to match the sun
-    bulb.turn_on()  #turns light on gradually within 5 minutes
-  # Make it do a procedural increase in brightness eventually
-  # To do this we can use bulb.set_brightness(x) 0 <= x <= 100
+    bulb.turn_on()  #turns light on gradually within 10 minutes
     
 def light_off(bulb):
     bulb.turn_off()
@@ -187,3 +186,19 @@ def light_off(bulb):
 while(True):
     time.sleep(1)
     print("Running")
+
+    #Constantly check and change the real time
+    
+    #Get alarm time from user 
+    
+    #if real_time = alarm_time - 10 minutes
+        light_on(bulb)  #function that turns the light on gradually within 10 minutes
+   
+    if alarm_time = real_time 
+        alarm_on(sound)  #function that turns the alarm on
+    
+    # Add function to constantly check sensor distance
+    
+    # Add if distance is within threshold
+        alarm_off(sound) #function that turns alarm off
+        ligh_off(bulb) #function that turns light off
