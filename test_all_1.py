@@ -170,6 +170,7 @@ def alarm_off(sound):
 	sound.stop()
 	
 def light_on(bulb):
+	bulb.set_RGB(239,142,56)	# sets the RGB color to color of the sun
 	bulb.turn_on()
   # Make it do a procedural increase in brightness eventually
   # To do this we can use bulb.set_brightness(x) 0 <= x <= 100
