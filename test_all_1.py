@@ -168,6 +168,14 @@ def alarm_on(sound):
 
 def alarm_off(sound): 
 	sound.stop()
+	
+def light_on(bulb):
+	bulb.turn_on()
+  # Make it do a procedural increase in brightness eventually
+  # To do this we can use bulb.set_brightness(x) 0 <= x <= 100
+	
+def light_off(bulb):
+	bulb.turn_off()
 
 ### When X time until alarm, start alarm processes ###
 # If the alarm is disabled in this time we want this process to stop
