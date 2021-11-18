@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import datetime
 import pygame.mixer
-from gpiozero import Sound
+from pygame.mixer import Sound
 
 ### Button Definitions ###
 
@@ -14,7 +14,7 @@ GPIO_ECHO = 24
 GPIO_HOUR = 27
 GPIO_MINUTE = 22
 GPIO_HOLD_FOR_TIME = 23
-GPIO_TOGGLE_ALARM = 25
+GPIO_TOGGLE_ALARM = 10
 
 
 ### Init ###
@@ -52,7 +52,11 @@ alarm_enabled = True
 
 # Button function for toggling the alarm
 def toggle_alarm(channel):
-  # Don't know if this line works B/C Python is weird af
+  global alarm_enabled
+  if (alarm_enabled):
+    print("Disabling Alarm")
+  else:
+    print("Enabling Alarm")
   alarm_enabled = not alarm_enabled
 
 # Button function for changing time
@@ -104,10 +108,10 @@ def change_alarm_time(channel):
     tempTime = str(hour) + ":"
 
     # Have to consider having a time like 8:1 when we want 8:01
-    if (minute > 10):
-      tempTime += "0" + minute
+    if (minute < 10):
+      tempTime += "0" + str(minute)
     else:
-      tempTime += minute
+      tempTime += str(minute)
 
     alarm_time = tempTime
 
@@ -115,7 +119,7 @@ def change_alarm_time(channel):
     filew = open("alarm_time.txt","w")
     filew.write(alarm_time)
     filew.close()
-    sleep(0.5)
+    time.sleep(0.5)
 
   return
 
@@ -160,11 +164,13 @@ def distance():
 def alarm_on(sound):
   # Make it do a procedural increase in volume eventually
   # To do this we can use sound.set_volume(x) 0 <= x <= 1
-	sound.play()
+    sound.play()
 
 def alarm_off(sound): 
-	sound.stop()
+    sound.stop()
 
 ### When X time until alarm, start alarm processes ###
 # If the alarm is disabled in this time we want this process to stop
-
+while(True):
+    time.sleep(1)
+    print("Running")
