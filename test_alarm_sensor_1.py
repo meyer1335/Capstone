@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import pygame.mixer
 from pygame.mixer import Sound
+import time
 
 # For Distance Sensor
 GPIO_TRIGGER = 18
@@ -51,19 +52,21 @@ def distance():
 def alarm_on(sound):
   # Make it do a procedural increase in volume eventually
   # To do this we can use sound.set_volume(x) 0 <= x <= 1
+  sound.set_volume(.1)
   sound.play()
 
 def alarm_off(sound): 
   sound.stop()
 
+#Turn on alarm
+alarm_on(sound)
+
 while(True):
   print("Running")
 
-  # Turn on alarm
-  alarm_on(sound)
-
   # If distance < THRESHOLD turn off alarm
-  if (distance < 1):
+  dist = distance()
+  if (dist < 5):
     alarm_off(sound)
 
-  sleep(0.5)
+  time.sleep(0.5)
