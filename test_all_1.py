@@ -167,38 +167,86 @@ def distance():
   return distance
 
 def alarm_on(sound):
+  print("Turning alarm on")
+
   # Make it do a procedural increase in volume eventually
   # To do this we can use sound.set_volume(x) 0 <= x <= 1
-    sound.play()
+  sound.play()
 
 def alarm_off(sound): 
-    sound.stop()
+  print("Turning alarm off")
+  sound.stop()
     
 def light_on(bulb):
-    bulb.set_color_temp(4000) #sets the color temperature to match the sun
-    bulb.turn_on()  #turns light on gradually within 10 minutes
+  print("Turning light on")
+  bulb.set_color_temp(4000) #sets the color temperature to match the sun
+  bulb.turn_on()  #turns light on gradually within 10 minutes
     
 def light_off(bulb):
-    bulb.turn_off()
+  print("Turning light off")
+  bulb.turn_off()
+
+def turn_on_light_time(alarm):
+  tempHr = ""
+  tempMin = ""
+  readHr = True
+  for char in alarm_time:
+    if (char == ':'):
+      readHr = False
+    elif (readHr):
+      tempHr += char
+    elif (not readHr):
+      tempMin += char
+
+  hour = int(tempHr)
+  minute = int(tempMin)
+
+  if (minute >= 10):
+    minute -= 10
+  else:
+    if (hour == 0):
+      hour = 24
+    else:
+      hour -= 1
+    minute = 60 - (10 - minute)
+
+  tempTime = str(hour) + ":"
+
+  # Have to consider having a time like 8:1 when we want 8:01
+  if (minute < 10):
+    tempTime += "0" + str(minute)
+  else:
+    tempTime += str(minute)
+
+  return tempTime
 
 ### When X time until alarm, start alarm processes ###
 # If the alarm is disabled in this time we want this process to stop
+# Need to test putting a sleep function in this, don't know if it will
+# keep button functions from working...
 while(True):
-    time.sleep(1)
-    print("Running")
-
-    #Constantly check and change the real time
+  if (alarm_enabled):
+    #Update the sys time constantly
+    sys_time = datetime.datetime.now().strftime('%H:%M')
     
-    #Get alarm time from user 
-    
-    #if real_time = alarm_time - 10 minutes
-        light_on(bulb)  #function that turns the light on gradually within 10 minutes
+    # As long as these if statements execute more than once per minute we are fine
+    if (turn_on_light_time == sys_time):
+      light_on(bulb)  #function that turns the light on gradually within 10 minutes
    
-    if alarm_time = real_time 
-        alarm_on(sound)  #function that turns the alarm on
+    if (alarm_time == sys_time):
+      alarm_on(sound)  #function that turns the alarm on
     
     # Add function to constantly check sensor distance
+    delta = 5 # Need to figure this out more
+    basket_made = False
+    while (not basket_made):
+      time.sleep(0.1)
+      if (distance() < delta):
+        basket_made = True
     
     # Add if distance is within threshold
-        alarm_off(sound) #function that turns alarm off
-        ligh_off(bulb) #function that turns light off
+    alarm_off(sound) #function that turns alarm off
+    ligh_off(bulb) #function that turns light off
+  else:
+    # Needs tested (see above)
+    # time.sleep(1)
