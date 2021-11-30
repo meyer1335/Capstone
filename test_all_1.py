@@ -171,7 +171,8 @@ def alarm_on(sound):
 
   # Make it do a procedural increase in volume eventually
   # To do this we can use sound.set_volume(x) 0 <= x <= 1
-  sound.play(0.1)
+  sound.set_volume(0.1)
+  sound.play()
 
 def alarm_off(sound): 
   print("Turning alarm off")
