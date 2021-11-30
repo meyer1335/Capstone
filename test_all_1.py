@@ -241,17 +241,16 @@ while(True):
    
     if (alarm_time == sys_time):
       alarm_on(sound)  #function that turns the alarm on
-    
-    # Add function to constantly check sensor distance
-    delta = 5 # Need to figure this out more
-    basket_made = False
-    while (not basket_made):
-      time.sleep(0.1)
-      if (distance() < delta):
-        basket_made = True
-    # Add if distance is within threshold
-    alarm_off(sound) #function that turns alarm off
-    light_off(bulb) #function that turns light off
+      # Add function to constantly check sensor distance
+      delta = 5 # Need to figure this out more
+      basket_made = False
+      while (not basket_made):
+        time.sleep(0.1)
+        if (distance() < delta):
+          basket_made = True
+      # Add if distance is within threshold
+      alarm_off(sound) #function that turns alarm off
+      light_off(bulb) #function that turns light off
 
   # Going to try and buffer everything with this sleep
   # might prevent buttons from working during the sleep but not sure
