@@ -70,3 +70,5 @@ updateTime(1);
 //Call updateTime every half-second. Could call every second, we're only displaying hours and minutes
 let tick = setInterval(updateTime,500);
 
+
+
