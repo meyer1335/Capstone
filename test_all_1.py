@@ -171,7 +171,7 @@ def alarm_on(sound):
 
   # Make it do a procedural increase in volume eventually
   # To do this we can use sound.set_volume(x) 0 <= x <= 1
-  sound.play()
+  sound.play(0.1)
 
 def alarm_off(sound): 
   print("Turning alarm off")
@@ -225,9 +225,15 @@ def turn_on_light_time(alarm):
 # Need to test putting a sleep function in this, don't know if it will
 # keep button functions from working...
 while(True):
+  # Going to overflow the I/O with this if the sleep doesnt work
+  print("Running")
   if (alarm_enabled):
     #Update the sys time constantly
     sys_time = datetime.datetime.now().strftime('%H:%M')
+
+    # So with the light and alarm functions.. I'm not sure if
+    # they will work on 1 thread of execution so we might have to
+    # unfortunately multithread this :(
     
     # As long as these if statements execute more than once per minute we are fine
     if (turn_on_light_time == sys_time):
@@ -243,10 +249,10 @@ while(True):
       time.sleep(0.1)
       if (distance() < delta):
         basket_made = True
-    
     # Add if distance is within threshold
     alarm_off(sound) #function that turns alarm off
-    ligh_off(bulb) #function that turns light off
-  else:
-    # Needs tested (see above)
-    # time.sleep(1)
+    light_off(bulb) #function that turns light off
+
+  # Going to try and buffer everything with this sleep
+  # might prevent buttons from working during the sleep but not sure
+  time.sleep(0.5)
