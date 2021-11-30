@@ -191,7 +191,7 @@ def turn_on_light_time(alarm):
   tempHr = ""
   tempMin = ""
   readHr = True
-  for char in alarm_time:
+  for char in alarm:
     if (char == ':'):
       readHr = False
     elif (readHr):
@@ -218,7 +218,6 @@ def turn_on_light_time(alarm):
     tempTime += "0" + str(minute)
   else:
     tempTime += str(minute)
-
   return tempTime
 
 ### When X time until alarm, start alarm processes ###
@@ -228,18 +227,22 @@ def turn_on_light_time(alarm):
 while(True):
   # Going to overflow the I/O with this if the sleep doesnt work
   print("Running")
+  is_light_on = False
   if (alarm_enabled):
     #Update the sys time constantly
     sys_time = datetime.datetime.now().strftime('%H:%M')
-
+    light_time = turn_on_light_time(alarm_time)
     # So with the light and alarm functions.. I'm not sure if
     # they will work on 1 thread of execution so we might have to
     # unfortunately multithread this :(
-    
+    print("Alarm Time: " + alarm_time)
+    print("Light Time: " + light_time)
+    print("Sys Time: " + sys_time)
     # As long as these if statements execute more than once per minute we are fine
-    if (turn_on_light_time == sys_time):
-      light_on(bulb)  #function that turns the light on gradually within 10 minutes
-   
+    if ((light_time == sys_time) and (not is_light_on)):
+      is_light_on = True 
+      light_on(bulb)
+ 
     if (alarm_time == sys_time):
       alarm_on(sound)  #function that turns the alarm on
       # Add function to constantly check sensor distance
@@ -252,6 +255,7 @@ while(True):
       # Add if distance is within threshold
       alarm_off(sound) #function that turns alarm off
       light_off(bulb) #function that turns light off
+      is_light_on = False
 
   # Going to try and buffer everything with this sleep
   # might prevent buttons from working during the sleep but not sure
