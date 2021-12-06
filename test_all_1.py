@@ -224,10 +224,10 @@ def turn_on_light_time(alarm):
 # If the alarm is disabled in this time we want this process to stop
 # Need to test putting a sleep function in this, don't know if it will
 # keep button functions from working...
+is_light_on = False
 while(True):
   # Going to overflow the I/O with this if the sleep doesnt work
   print("Running")
-  is_light_on = False
   if (alarm_enabled):
     #Update the sys time constantly
     sys_time = datetime.datetime.now().strftime('%H:%M')
