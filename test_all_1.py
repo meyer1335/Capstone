@@ -42,7 +42,7 @@ GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
 GPIO.setup(GPIO_ECHO, GPIO.IN)
 
 # Read alarm_time.txt
-filer = open("alarm_time.txt","r")
+filer = open("./capstone-app/src/assets/alarm_time.txt","r")
 alarm_time = filer.read(10)
 filer.close()
 
@@ -121,7 +121,7 @@ def change_alarm_time(channel):
     alarm_time = tempTime
 
     # Write alarm time to file
-    filew = open("alarm_time.txt","w")
+    filew = open("./capstone-app/src/assets/alarm_time.txt","w")
     filew.write(alarm_time)
     filew.close()
     time.sleep(0.5)
